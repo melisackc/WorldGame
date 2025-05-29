@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
 
 
 
@@ -15,7 +16,7 @@ using System.Data.SqlClient;
 namespace Yazilim_Yapimi
 {
 
-  
+
 
     public partial class Kelimelerim : Form
     {
@@ -85,8 +86,11 @@ namespace Yazilim_Yapimi
                     if (sampleMap.ContainsKey(wordID))
                     {
                         var samples = sampleMap[wordID];
-                        word.EngSentence = samples.Count > 0 ? samples[0] : "";
-                        word.TrSentence = samples.Count > 1 ? samples[1] : "";
+
+                        word.EngSentence1 = samples.Count > 0 ? samples[0] : "";
+                        word.TrSentence1 = samples.Count > 1 ? samples[1] : "";
+                        word.EngSentence2 = samples.Count > 2 ? samples[2] : "";
+                        word.TrSentence2 = samples.Count > 3 ? samples[3] : "";
                     }
 
                     words.Add(word);
@@ -117,8 +121,10 @@ namespace Yazilim_Yapimi
 
                 textBox1.Text = word.Eng;
                 textBox2.Text = word.Tr;
-                textBox3.Text = word.EngSentence;
-                textBox4.Text = word.TrSentence;
+                textBox3.Text = word.EngSentence1;
+                textBox4.Text = word.TrSentence1;
+                textBox5.Text = word.EngSentence2;
+                textBox6.Text = word.TrSentence2;
 
                 if (!string.IsNullOrEmpty(word.PicturePath) && File.Exists(word.PicturePath))
                 {
@@ -130,6 +136,7 @@ namespace Yazilim_Yapimi
                 }
             }
         }
+
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -176,20 +183,30 @@ namespace Yazilim_Yapimi
             }
         }
 
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            //2. cümle
+        }
 
-
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            //Türkçesi
+        }
     }
 
-    
+
     class Word
     {
-        
         public string Eng { get; set; }
         public string Tr { get; set; }
-        public string EngSentence { get; set; }
-        public string TrSentence { get; set; }
         public string PicturePath { get; set; }
+
+        public string EngSentence1 { get; set; }
+        public string TrSentence1 { get; set; }
+        public string EngSentence2 { get; set; }
+        public string TrSentence2 { get; set; }
     }
+
 
 
 

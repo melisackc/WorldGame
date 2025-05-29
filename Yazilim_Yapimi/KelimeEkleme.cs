@@ -19,7 +19,7 @@ namespace Yazilim_Yapimi
         private string savedImagePath = null;
 
         // Resimlerin kaydedileceği klasör (İstersen değiştirebilirsin)
-        private string imageFolder = @"C:\\Users\\kinay\\OneDrive\\Desktop\\YazilimYapımfoto";
+        private string imageFolder = @"C:\\Users\\kinay\\OneDrive\\Desktop\\Y.YapımıFoto";
         public KelimeEkleme()
         {
             InitializeComponent();
@@ -38,12 +38,17 @@ namespace Yazilim_Yapimi
             string tr = textBox2.Text.Trim();
             string engSample = textBox3.Text.Trim();
             string trSample = textBox4.Text.Trim();
+            string engSample2 = textBox5.Text.Trim();
+            string trSample2 = textBox6.Text.Trim();
+
 
             if (string.IsNullOrEmpty(eng) || string.IsNullOrEmpty(tr))
             {
                 MessageBox.Show("İngilizce ve Türkçe kelime boş olamaz.");
                 return;
             }
+
+
 
             string connectionString = "Data Source=MELISA\\MSSQLSERVER01;Initial Catalog=yazilim_yapimi;Integrated Security=True";
 
@@ -80,6 +85,24 @@ namespace Yazilim_Yapimi
                     cmdSample2.Parameters.AddWithValue("@sample", trSample);
                     cmdSample2.ExecuteNonQuery();
 
+                    // 2. örnek cümleleri ekle
+                    if (!string.IsNullOrEmpty(engSample2))
+                    {
+                        SqlCommand cmdSample3 = new SqlCommand(insertSampleQuery, connection, transaction);
+                        cmdSample3.Parameters.AddWithValue("@wordID", newWordID);
+                        cmdSample3.Parameters.AddWithValue("@sample", engSample2);
+                        cmdSample3.ExecuteNonQuery();
+                    }
+
+                    if (!string.IsNullOrEmpty(trSample2))
+                    {
+                        SqlCommand cmdSample4 = new SqlCommand(insertSampleQuery, connection, transaction);
+                        cmdSample4.Parameters.AddWithValue("@wordID", newWordID);
+                        cmdSample4.Parameters.AddWithValue("@sample", trSample2);
+                        cmdSample4.ExecuteNonQuery();
+                    }
+
+
                     transaction.Commit();
                     MessageBox.Show("Kelime ve örnekler başarıyla eklendi.");
                     this.Close();
@@ -91,11 +114,11 @@ namespace Yazilim_Yapimi
                 }
             }
         }
-    
 
 
-            
-        
+
+
+
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -125,7 +148,7 @@ namespace Yazilim_Yapimi
         string selectedImagePath = "";
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             // Fotoğraf seçme butonu
             using (OpenFileDialog ofd = new OpenFileDialog())
             {
@@ -164,6 +187,16 @@ namespace Yazilim_Yapimi
                     savedImagePath = targetPath;
                 }
             }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            // 2. ingilizce cümle
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            //Türkçesi
         }
     }
 }
