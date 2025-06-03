@@ -30,8 +30,9 @@ Rapor çıktısı alınabilir.
 
 
 🔄 Diğer Modüller
-🧩 Bulmaca/Puzzle Modülü
-🧠 Hafıza Çivisi Modülü
+🧩 Bulmaca Modülü
+🧩 Puzzle Modülü
+
 
 
 🛠️ Kullanılan Teknolojiler
